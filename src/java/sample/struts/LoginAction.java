@@ -33,7 +33,7 @@ public class LoginAction {
             int role = dao.getRole();
             Map<String, Object> session = ActionContext.getContext().getSession();
             session.put("FULLNAME", fullName);
-            session.put("CART", role);
+            session.put("ROLE", role);
             session.put("USERID", username);
         }
         
