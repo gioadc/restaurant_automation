@@ -7,7 +7,9 @@ package sample.cart;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
+import sample.RES_Food.RES_FoodDTO;
 import sample.RES_OrderDetail.RES_OrderDetailDTO;
 
 /**
@@ -16,14 +18,55 @@ import sample.RES_OrderDetail.RES_OrderDetailDTO;
  */
 public class Cart implements Serializable{
     private BigDecimal orderID;
-    private Map<BigDecimal, RES_OrderDetailDTO> items;
+    private Map<Integer, RES_OrderDetailDTO> items;
 
     public Cart() {
     }    
-
-    public Cart(BigDecimal orderID, Map<BigDecimal, RES_OrderDetailDTO> items) {
-        this.orderID = orderID;
-        this.items = items;
+    
+    public void addItemToCart(RES_FoodDTO food, int quantity){
+        if(this.items == null){
+            this.items = new HashMap<>();
+        }
+        
+        RES_OrderDetailDTO dto = null;
+        if(this.items.containsKey(food.getItemID())){
+            dto = items.get(food.getItemID());
+            dto.setQuantity(dto.getQuantity() + quantity);
+        } else{
+            dto = new RES_OrderDetailDTO();
+            dto.setID(null);
+            dto.setOrderID(orderID);
+            dto.setItemID(food.getItemID());
+            dto.setName(food.getName());
+            dto.setPrice(food.getPrice());
+        }
+        this.items.put(food.getItemID(), dto);
+        System.out.println(items);
+    }
+    
+    public void removeItem(int itemID){
+        if(this.items == null){
+            return;
+        }
+        
+        if(this.items.containsKey(itemID)){
+            this.items.remove(itemID);
+            if(this.items.isEmpty()){
+                this.items = null;
+            }
+        }
+    }
+    
+    public void updateQuantity(int itemID, int quantity){
+        if(this.items == null){
+            return;
+        }
+        
+        if(this.items.containsKey(itemID)){
+            RES_OrderDetailDTO dto = this.items.get(itemID);
+            dto.setQuantity(quantity);
+            this.items.put(itemID, dto);
+        }
     }
 
     public BigDecimal getOrderID() {
@@ -34,11 +77,13 @@ public class Cart implements Serializable{
         this.orderID = orderID;
     }
 
-    public Map<BigDecimal, RES_OrderDetailDTO> getItems() {
+    public Map<Integer, RES_OrderDetailDTO> getItems() {
         return items;
     }
 
-    public void setItems(Map<BigDecimal, RES_OrderDetailDTO> items) {
+    public void setItems(Map<Integer, RES_OrderDetailDTO> items) {
         this.items = items;
     }
+
+    
 }

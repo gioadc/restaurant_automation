@@ -7,7 +7,10 @@ package waiter;
 
 import com.opensymphony.xwork2.ActionContext;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Map;
+import sample.RES_Food.RES_FoodDAO;
+import sample.RES_Food.RES_FoodDTO;
 import sample.RES_Order.RES_OrderDAO;
 import sample.RES_Table.RES_TableDAO;
 import sample.cart.Cart;
@@ -21,6 +24,7 @@ public class ServeAction {
     private int tableID;
     //change into status = 2 : serving
     private final int TABLESTATUS = 2;
+    
     private final String SUCCESS = "success";
     private final String FAIL = "fail";
 
@@ -29,11 +33,11 @@ public class ServeAction {
 
     public String execute() throws Exception {
         RES_TableDAO daoTable = new RES_TableDAO();
-        RES_OrderDAO daoOrder = new RES_OrderDAO();
         boolean result1 = daoTable.updateTableStatus(tableID, TABLESTATUS);
         
         Map session = ActionContext.getContext().getSession();
         String waiterID = (String)session.get("USERID");
+        RES_OrderDAO daoOrder = new RES_OrderDAO();
         BigDecimal orderID = daoOrder.createOrder(waiterID, tableID);
         Cart cart = new Cart();
         cart.setOrderID(orderID);
@@ -54,4 +58,7 @@ public class ServeAction {
         this.tableID = tableID;
     }
 
+  
+
+    
 }

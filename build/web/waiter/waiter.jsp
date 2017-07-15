@@ -14,7 +14,7 @@
     </head>
     <body>
         <h1>Waiter</h1>
-        Welcome, <s:property value="%{#session.FULLNAME}"/>
+        Welcome, <s:property value="%{#session.FULLNAME}"/><br/>
         <s:if test="%{tables != null}">
             <table border="1">
                 <thead>
@@ -42,8 +42,9 @@
             </table>
 
         </s:if>
+        
         <s:if test="%{tables == null}">
-            All of tables are serving
+            <h2><font color='red'>All of tables are serving</font></h2>
         </s:if>
     </body>
 </html>

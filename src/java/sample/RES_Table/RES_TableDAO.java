@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
@@ -87,6 +88,44 @@ public class RES_TableDAO implements Serializable{
                 con.close();
             }
         }
+        return false;
+    }
+    
+    public boolean insertTimeComeIn(String hostID, int tableID, Timestamp timeComeIn) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtilitizes.makeConnection();
+            if ( con != null){
+                String sql = "Insert into dbo.RES_ComeIn(hostID, tableID, timeComeIn) "
+                                + "values(?,?,?)";
+                
+                timeComeIn = new Timestamp(System.currentTimeMillis());
+                stm = con.prepareStatement(sql);
+                stm.setString(1, hostID);
+                stm.setInt(2, tableID);
+                stm.setTimestamp(3, timeComeIn);
+                
+                int result = stm.executeUpdate();
+                
+                if (result > 0){
+                    return true;
+                }
+            }
+        } finally {
+            if ( rs != null){
+                rs.close();
+            }
+            if ( stm != null){
+                stm.close();
+            }
+            if ( con != null){
+                con.close();
+            }
+        }
+        
+        
         return false;
     }
 }

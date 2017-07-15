@@ -24,7 +24,6 @@ public class RES_OrderDAO {
     public BigDecimal createOrder(String waiterID, int tableID) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
-        ResultSet rs = null;
         BigDecimal orderID;
         try {
             con = DBUtilitizes.makeConnection();
@@ -50,9 +49,7 @@ public class RES_OrderDAO {
                 }
             }
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
+           
             if (stm != null) {
                 stm.close();
             }
