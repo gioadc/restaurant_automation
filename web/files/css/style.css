@@ -12,10 +12,24 @@ and open the template in the editor.
     box-sizing: border-box;
 }
 
+html { 
+  background: url(../images/bg03.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 html, body {
     margin: 0;
     padding: 0;
+    color: #585858;
     font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
 }
 
 .float-left {
@@ -30,6 +44,36 @@ html, body {
     clear: both;
 }
 
+/* Site style */
+.site-title {
+    color: #fff;
+    text-shadow: 3px 2px 3px #000;
+}
+
+.top-bar {
+    background-color: rgba(244,244,244,0.9);
+    padding: 10px;
+}
+
+.body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+    min-height: 90vh;
+}
+
+.container {
+    background-color: rgba(255,255,255,0.9);
+    padding: 15px;
+}
+
+.block-title {
+    margin: 0;
+}
+
+.divider {
+    padding: 10px;
+}
 /*Login page*/
 
 .login-cotainer {
@@ -45,8 +89,7 @@ html, body {
 }
 
 .login-block {
-    min-width: 350px;
-    max-width: 450px;
+    width: 420px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -57,14 +100,50 @@ html, body {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.btn-primary {
-    padding: 10px 15px;
-    border-radius: 3px;
-    background-color: #275ed1;
-    color: #fff;
+.lose-focus {
+    color: #ccc7c7;
+    line-height: 50px;
+}
+
+.btn {
+        display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
     text-align: center;
-    border: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
     cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
 }
 
 .input {
@@ -86,12 +165,6 @@ html, body {
 
 /*Search Page*/
 
-.body {
-    max-width: 900px;
-    margin: 0 auto;
-    
-}
-
 .result-table {
     width: 100%;
 }
@@ -106,6 +179,12 @@ html, body {
 
 .result-table td, .result-table th {
     padding: 8px;
+}
+
+.result-table .input {
+    margin: 0;
+    padding: 5px;
+    text-align: center;
 }
 
 .text-left {

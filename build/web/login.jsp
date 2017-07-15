@@ -18,13 +18,14 @@
     <body>
         <div class="login-cotainer">
             <div class="login-block">
-                <h1>Login</h1>
+                <h1 class="float-left">Login</h1>
+                <h3 class="float-right lose-focus">Restaurant automation system</h3>
+                <div class="clear"></div>
                 ${requestScope.MSG}
-                <s:form action="login">
+                <s:form action="login" theme="simple">
                     <s:textfield name="username" cssClass="input" placeholder="Username"/>
                     <s:password name="password" cssClass="input" placeholder="Username"/>
-                    <s:submit label="Login" cssClass="btn-primary float-right"/>
-                    <span class="float-left">or <strong><a href="viewOrder.jsp">VIEW ORDER</a></strong></span>
+                    <s:submit label="Login" cssClass="btn btn-primary float-right"/>
                     <div class="clear"></div>
                 </s:form>
             </div>

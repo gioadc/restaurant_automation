@@ -11,40 +11,44 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Waiter</title>
+        <s:include value="../layout/head.jsp"/>
     </head>
     <body>
-        <h1>Waiter</h1>
-        Welcome, <s:property value="%{#session.FULLNAME}"/><br/>
-        <s:if test="%{tables != null}">
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Table ID</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="body">
+            <s:include value="../layout/header.jsp"/>
+            <s:if test="%{tables != null}">
+                <table class="result-table text-center">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Table ID</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    <s:iterator var="dto" value="tables" status="counter">
-                        <s:form action="serve" theme="simple">
-                            <tr>
-                                <td><s:property value="%{#counter.count}"/></td>
-                                <td><s:property value="%{#dto.tableID}"/>
-                                    <s:hidden name="tableID" value="%{#dto.tableID}"/>
-                                </td>
-                                <td><s:submit value="Serve"/></td>
-                            </tr>
-                        </s:form>
-                    </s:iterator>
+                        <s:iterator var="dto" value="tables" status="counter">
+                            <s:form action="serve" theme="simple">
+                                <tr>
+                                    <td>#<s:property value="%{#counter.count}"/></td>
+                                    <td><s:property value="%{#dto.tableID}"/>
+                                        <s:hidden name="tableID" value="%{#dto.tableID}"/>
+                                    </td>
+                                    <td><s:submit value="Serve" cssClass="btn btn-primary"/></td>
+                                </tr>
+                            </s:form>
+                        </s:iterator>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
-        </s:if>
-        
-        <s:if test="%{tables == null}">
-            <h2><font color='red'>All of tables are serving</font></h2>
-        </s:if>
+            </s:if>
+
+            <s:if test="%{tables == null}">
+                <div class="container">
+                    <h2 class="warning"><font color='red'>All of tables are serving</font></h2>
+                </div>
+            </s:if>
+        </div>
     </body>
 </html>

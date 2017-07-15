@@ -5,3 +5,4 @@
 --%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/files/css/style.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/files/css/grid.css"/>
