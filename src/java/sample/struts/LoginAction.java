@@ -7,7 +7,8 @@ package sample.struts;
 
 import com.opensymphony.xwork2.ActionContext;
 import java.util.Map;
-import sample.db.UserDAO;
+import org.apache.struts2.ServletActionContext;
+import sample.RES_User.RES_UserDAO;
 
 /**
  *
@@ -25,7 +26,7 @@ public class LoginAction {
     public String execute() throws Exception {
         String url = FAIL;
         
-        UserDAO dao = new UserDAO();
+        RES_UserDAO dao = new RES_UserDAO();
         boolean result = dao.checkLogin(username, password);
         if (result) {
             url = SUCCESS;
@@ -33,8 +34,10 @@ public class LoginAction {
             int role = dao.getRole();
             Map<String, Object> session = ActionContext.getContext().getSession();
             session.put("FULLNAME", fullName);
-            session.put("CART", role);
+            session.put("ROLE", role);
             session.put("USERID", username);
+        } else {
+            ServletActionContext.getRequest().setAttribute("ERROR", "Invalid username or password!");
         }
         
         return url;

@@ -3,51 +3,50 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <!--<constant name="struts.enable.DynamicMethodInvocation" value="false"/>-->
+    <!--<constant name="struts.devMode" value="true"/>-->
+
+    <!--<constant name="struts.convention.default.parent.package" value="default"/>-->
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default" namespace="/">
+        <interceptors>
+            <interceptor name="roleInterceptor" class="interceptors.RoleInterceptor"/>
+            <interceptor-stack name="customStack">
+                <interceptor-ref name="roleInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="customStack"/>
+
         <action name="" class="sample.struts.IndexAction">
-            <result name="manager" type="redirectAction">manager</result>
-            <result name="host" type="redirectAction">host</result>
-            <result name="waiter" type="redirectAction">waiter</result>
-            <result name="chef" type="redirectAction">chef</result>
-            <result name="busboy" type="redirectAction">busboy</result>
+            <result name="manager" type="redirect">manager</result>
+            <result name="host" type="redirect">host</result>
+            <result name="waiter" type="redirect">waiter</result>
+            <result name="chef" type="redirect">chef</result>
+            <result name="busboy" type="redirect">busboy</result>
             <result name="fail">login.jsp</result>
         </action>
         <action name="index" class="sample.struts.IndexAction">
-            <result name="manager" type="redirectAction">manager</result>
-            <result name="host" type="redirectAction">host</result>
-            <result name="waiter" type="redirectAction">waiter</result>
-            <result name="chef" type="redirectAction">chef</result>
-            <result name="busboy" type="redirectAction">busboy</result>
+            <result name="manager" type="redirect">manager</result>
+            <result name="host" type="redirect">host</result>
+            <result name="waiter" type="redirect">waiter</result>
+            <result name="chef" type="redirect">chef</result>
+            <result name="busboy" type="redirect">busboy</result>
             <result name="fail">login.jsp</result>
         </action>
-    </package>
-    <package name="manager" extends="struts-default" namespace="/manager">
-        <action name="index" class="sample.struts.IndexAction">
-            <result name="fail" type="redirect">../login.jsp</result>
+        <action name="login" class="sample.struts.LoginAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+            </result>
+            <result name="fail">login.jsp</result>
+        </action>
+        <action name="logout" class="sample.struts.LogoutAction">
+            <result name="success" type="redirect">login.jsp</result>
         </action>
     </package>
-    <package name="host" extends="struts-default" namespace="/host">
-        <action name="index" class="sample.struts.IndexAction">
-            <result name="fail" type="redirect">../login.jsp</result>
-        </action>
-    </package>
-    <package name="waiter" extends="struts-default" namespace="/waiter">
-        <action name="index" class="sample.struts.IndexAction">
-            <result name="fail" type="redirect">../login.jsp</result>
-        </action>
-    </package>
-    <package name="chef" extends="struts-default" namespace="/chef">
-        <action name="index" class="sample.struts.IndexAction">
-            <result name="fail" type="redirect">../login.jsp</result>
-        </action>
-        <action name="updateChefID" class="chef.UpdateChefIDAction">
-<!--            <result name="success">index</result>-->
-        </action>
-    </package>
-    <package name="busboy" extends="struts-default" namespace="/manager">
-        <action name="index" class="sample.struts.IndexAction">
-            <result name="fail" type="redirect">../login.jsp</result>
-        </action>
-    </package>
+    
+    <include file="host.xml"/>
+    <include file="waiter.xml"/>
+    <include file="chef.xml"/>
+    <include file="busboy.xml"/>
+    <include file="manager.xml"/>
 </struts>

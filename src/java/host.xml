@@ -1,0 +1,23 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="host" extends="struts-default" namespace="/host">
+        <global-results>
+            <result name="role">../index</result>
+        </global-results>
+        <action name="" class="host.SearchtablestatusAction">
+            <result name="success">host.jsp</result>
+        </action>
+        <action name="search" class="host.SearchtablestatusAction">
+            <result name="success">host.jsp</result>
+        </action>
+        <action name="update" class="host.UpdateAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">search</param>
+            </result>
+            <result name="fail">errorUpdate.html</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,332 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 15, 2017, 4:08:58 PM
+    Author     : kysik
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    color: #222;
+    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+    min-width: 420px;
+}
+
+html { 
+  background: url(../images/bg06.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+}
+
+body {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(244,244,244,0.5); 
+    -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.5); 
+}
+
+a {
+    text-decoration: none;
+    color: #eee;
+}
+a:hover {
+    color: #c11cbb;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.center-block {
+    display: block;
+    margin: 0 auto;
+    float: none;
+}
+
+.clear {
+    clear: both;
+}
+
+/* Site style */
+.site-title {
+    color: #fff;
+    text-shadow: 3px 2px 3px rgba(37, 37, 37, 0.8);
+}
+
+.top-bar {
+    background-color: rgba(244, 244, 244, 0.2);
+    padding: 10px;
+    color: #fdfdfd;
+}
+
+hr {
+    height: 1px;
+    background: rgba(230, 230, 230, 0.5);
+    border: none;
+}
+
+.body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 10px 10px 10px;
+    min-height: 90vh;
+}
+
+.container {
+    background-color: rgba(255,255,255,0.9);
+    padding: 15px;
+}
+
+.block-title {
+    margin: 0;
+}
+
+.divider {
+    padding: 10px;height: 1px;
+    border: none;
+}
+
+/*MENU*/
+.menu a {
+    padding: 10px;
+    margin: 0 5px;
+    background: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/*Login page*/
+
+.login-cotainer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #76b852; /* fallback for old browsers */
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(#76b852), to(#8DC26F));
+    background: -webkit-linear-gradient(to left, #76b852, #8DC26F);
+    background: -moz-linear-gradient(to left, #76b852, #8DC26F);
+    background: -o-linear-gradient(to left, #76b852, #8DC26F);
+    background: linear-gradient(to left, #76b852, #8DC26F);
+    background: url(../images/bg04.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.login-block {
+    width: 420px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.lose-focus {
+    color: #8c8c8c;
+    line-height: 50px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.input {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.warning {
+    color: #ea521e;
+}
+
+/*Search Page*/
+
+.result-table {
+    width: 100%;
+    transition: all 0.5s;
+}
+
+.empty-table {
+    opacity: 0;
+    display: none;
+}
+
+.result-table tr:nth-child(even) {
+    background-color: rgba(243,243,243,.85);
+}
+
+.result-table tr:nth-child(odd) {
+    background-color: rgba(255,255,255,.9);
+}
+
+.result-table td, .result-table th {
+    padding: 8px;
+}
+
+.result-table .input {
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.alert {
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.alert-success {
+    background-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.alert-warning {
+    background-color: #ebccd1;
+    color: #e04845;
+}
+
+.report-filter .input {
+    padding: 2px 3px;
+    width: auto;
+}
+
+/* TAB */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: rgba(244, 244, 244, 0.7);
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.limit-height {
+    max-height: 90vh;
+    overflow-y: auto;
+}

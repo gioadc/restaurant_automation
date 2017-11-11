@@ -1,0 +1,85 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="waiter" extends="json-default" namespace="/waiter">
+<!--        <interceptors>
+            <interceptor class="interceptors.RoleInterceptor" name="roleInterceptor">
+            </interceptor>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="roleInterceptor">
+                    <param name="yourInterceptor.interceptorConfigs.role">2</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="defaultStack"/>
+        <global-results>
+            <result name="role">/index</result>
+        </global-results>-->
+        <global-results>
+            <result name="role">../index</result>
+        </global-results>
+        
+        <action name="" class="waiter.WaiterAction">
+            <result>waiter.jsp</result>
+            <result name="lastserve" type="redirectAction">
+                <param name="actionName">waitFood</param>
+            </result>
+        </action>
+        <action name="index" class="waiter.WaiterAction">
+            <result>waiter.jsp</result>
+            <result name="lastserve" type="redirectAction">
+                <param name="actionName">waitFood</param>
+            </result>
+        </action>
+        <action name="serve" class="waiter.ServeAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+            <result name="fail" type="redirect">serveError.jsp</result>
+        </action>
+        <action name="getFood" class="waiter.GetFoodAction">
+            <result name="success">createOrder.jsp</result>
+            <result name="fail" type="redirect">serveError.jsp</result>
+        </action>
+        <action name="addToCart" class="waiter.AddToCartAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+        </action>
+        <action name="removeItem" class="waiter.RemoveItemAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+        </action>
+        <action name="updateItem" class="waiter.UpdateItemAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+        </action>
+        <action name="insertOrder" class="waiter.InsertOrderAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">waitFood</param>
+            </result>
+            <result name="fail" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+        </action>
+        <action name="waitFood" class="waiter.WaitFoodAction">
+            <result name="success">waitFood.jsp</result>
+        </action>
+        <action name="takeFood" class="waiter.TakeFoodAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">waitFood</param>
+            </result>
+        </action>
+        <action name="payBill" class="waiter.PayBillAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+            </result>
+        </action>
+        <action name="getReadyList" class="waiter.GetReadyListAction">
+            <result name="success" type="json"></result>
+        </action>
+    </package>
+</struts>

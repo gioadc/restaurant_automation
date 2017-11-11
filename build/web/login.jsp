@@ -13,16 +13,26 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <s:head/>
+        <s:include value="layout/head.jsp"/>
     </head>
     <body>
-        <div class="body">
-            <h1>Login</h1>
-            <h2>Restaurant automation system</h2>
-            <s:form action="login">
-                <s:textfield name="username" label="Username"/>
-                <s:password name="password" label="Password"/>
-                <s:submit label="Login"/>
-            </s:form>
+        <div class="login-cotainer">
+            <div class="login-block">
+                <h1 class="float-left">Login</h1>
+                <h3 class="float-right lose-focus">Restaurant automation system</h3>
+                <div class="clear"></div>
+                <s:if test="%{#request.ERROR != null}">
+                    <div class="alert alert-warning">
+                        <s:property value="%{#request.ERROR}"/>
+                    </div>
+                </s:if>
+                <s:form action="login" theme="simple">
+                    <s:textfield name="username" cssClass="input" placeholder="Username"/>
+                    <s:password name="password" cssClass="input" placeholder="Password"/>
+                    <s:submit value="Login" cssClass="btn btn-primary float-right"/>
+                    <div class="clear"></div>
+                </s:form>
+            </div>
         </div>
     </body>
 </html>

@@ -2,7 +2,7 @@
 <Context path="/Restaurant">
     <Resource author="Container"
         name="RESTAURANTDB" type="javax.sql.DataSource"
-        driverClassName="com.microsoft.sqldriver.jdbc.SQLServer"
-        url="jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=Restaurant"
+        driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        url="jdbc:sqlserver://localhost:1434;instanceName=SQLEXPRESS;databaseName=Restaurant"
         username="sa" password="qwer@@1234"/>
 </Context>
