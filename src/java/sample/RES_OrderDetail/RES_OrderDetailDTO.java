@@ -22,6 +22,7 @@ public class RES_OrderDetailDTO implements Serializable{
     private boolean taken;
     private Timestamp timeReady;
     private Timestamp orderTime; //from Order
+    private String orderTimeString;
     private String name;    //from food
     private int price;  //from food
     private int quantity = 1;
@@ -45,7 +46,7 @@ public class RES_OrderDetailDTO implements Serializable{
     }
     
     public String getOrderTimeStr() {
-        return new SimpleDateFormat("HH:mm").format(orderTime);
+        return orderTimeString;
     }
 
     public void setID(BigDecimal ID) {
@@ -98,6 +99,7 @@ public class RES_OrderDetailDTO implements Serializable{
 
     public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
+        this.orderTimeString = new SimpleDateFormat("HH:mm").format(orderTime);
     }
 
     public String getName() {

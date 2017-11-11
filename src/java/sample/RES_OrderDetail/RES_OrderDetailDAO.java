@@ -242,4 +242,143 @@ public class RES_OrderDetailDAO {
         return false;
     }
     
+    public ArrayList<RES_OrderDetailDTO> getAllFoodOrdered(BigDecimal orderID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ArrayList<RES_OrderDetailDTO> foodOrdered = null;
+
+        try {
+            con = DBUtilitizes.makeConnection();
+            if (con != null) {
+                String sql = "SELECT TOP 1000 COUNT(RES_Food.itemID) as quantity,"
+                        + "      orderID,"
+                        + "      RES_Food.itemID,"
+                        + "      name,"
+                        + "      price"
+                        + "  FROM [RES_OrderDetail] INNER JOIN RES_Food"
+                        + "		ON RES_Food.itemID = [RES_OrderDetail].itemID"
+                        + "  WHERE orderID = ?"
+                        + "  GROUP BY RES_Food.itemID, orderID, name, price";
+                stm = con.prepareStatement(sql);
+                stm.setBigDecimal(1, orderID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int itemID = rs.getInt("itemID");
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    int quantity = rs.getInt("quantity");
+                    RES_OrderDetailDTO dto = new RES_OrderDetailDTO();
+                    dto.setOrderID(orderID);
+                    dto.setItemID(itemID);
+                    dto.setName(name);
+                    dto.setPrice(price);
+                    dto.setQuantity(quantity);
+                    if (foodOrdered == null) {
+                        foodOrdered = new ArrayList<>();
+                    }
+                    foodOrdered.add(dto);
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        System.out.println("ORDER" + foodOrdered);
+        return foodOrdered;
+    }
+
+    public ArrayList<RES_OrderDetailDTO> getAllFoodReady(BigDecimal orderID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ArrayList<RES_OrderDetailDTO> foodReady = null;
+
+        try {
+            con = DBUtilitizes.makeConnection();
+            if (con != null) {
+                String sql = "SELECT * FROM RES_OrderDetail INNER JOIN RES_Food ON"
+                        + " RES_OrderDetail.itemID = RES_Food.itemID"
+                        + " WHERE isTaken = 0 and timeReady is NOT NULL and orderID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setBigDecimal(1, orderID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    BigDecimal id = rs.getBigDecimal("id");
+                    int itemID = rs.getInt("itemID");
+                    String chefID = rs.getString("chefID");
+                    boolean taken = rs.getBoolean("isTaken");
+                    Timestamp timeReady = rs.getTimestamp("timeReady");
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    RES_OrderDetailDTO dto = new RES_OrderDetailDTO();
+                    dto.setID(id);
+                    dto.setOrderID(orderID);
+                    dto.setItemID(itemID);
+                    dto.setChefID(chefID);
+                    dto.setTaken(taken);
+                    dto.setTimeReady(timeReady);
+                    dto.setName(name);
+                    dto.setPrice(price);
+                    if (foodReady == null) {
+                        foodReady = new ArrayList<>();
+                    }
+                    foodReady.add(dto);
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        System.out.println("READY" + foodReady);
+        return foodReady;
+    }
+    
+    public boolean updateTakeFood(BigDecimal id) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try{
+            con = DBUtilitizes.makeConnection();
+            if(con != null){
+                String sql =" UPDATE RES_OrderDetail SET isTaken = 1 WHERE id = ?";
+                stm = con.prepareStatement(sql);
+                stm.setBigDecimal(1, id);
+                int row = stm.executeUpdate();
+                if(row > 0){
+                    return true;
+                }
+            }
+        } finally{
+            if(rs != null){
+                rs.close();
+            }
+            if(stm != null){
+                stm.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        return false;
+    }
+    
 }

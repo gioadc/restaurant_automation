@@ -3,8 +3,20 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <!--<constant name="struts.enable.DynamicMethodInvocation" value="false"/>-->
+    <!--<constant name="struts.devMode" value="true"/>-->
+
+    <!--<constant name="struts.convention.default.parent.package" value="default"/>-->
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default" namespace="/">
+        <interceptors>
+            <interceptor name="roleInterceptor" class="interceptors.RoleInterceptor"/>
+            <interceptor-stack name="customStack">
+                <interceptor-ref name="roleInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="customStack"/>
+
         <action name="" class="sample.struts.IndexAction">
             <result name="manager" type="redirect">manager</result>
             <result name="host" type="redirect">host</result>
@@ -25,126 +37,16 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">index</param>
             </result>
-            <result name="fail" type="redirect">loginError.html</result>
+            <result name="fail">login.jsp</result>
+        </action>
+        <action name="logout" class="sample.struts.LogoutAction">
+            <result name="success" type="redirect">login.jsp</result>
         </action>
     </package>
     
-    <package name="manager" extends="struts-default" namespace="/manager">
-<!--        <interceptors>
-            <interceptor class="interceptors.RoleInterceptor" name="roleInterceptor">
-            </interceptor>
-            <interceptor-stack name="defaultStack">
-                <interceptor-ref name="roleInterceptor">
-                    <param name="yourInterceptor.interceptorConfigs.role">0</param>
-                </interceptor-ref>
-            </interceptor-stack>
-        </interceptors>
-        <default-interceptor-ref name="defaultStack"/>
-        <global-results>
-            <result name="role">index</result>
-        </global-results>-->
-        
-        
-        <action name="index" class="sample.struts.IndexAction">
-            <interceptor-ref name="defaultStack"></interceptor-ref>
-            <result name="fail" type="redirect">../login.jsp</result>
-        </action>
-        <action name="" class="manager.ManagerAction">
-            <result>index.jsp</result>
-        </action>
-    </package>
-    
-    <package name="host" extends="struts-default" namespace="/host">
-        <action name="" class="host.SearchtablestatusAction">
-            <result name="success">host.jsp</result>
-        </action>
-        <action name="search" class="host.SearchtablestatusAction">
-            <result name="success">host.jsp</result>
-        </action>
-        <action name="update" class="host.UpdateAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">search</param>
-            </result>
-            <result name="fail">host.jsp</result>
-        </action>
-    </package>
-    
-    <package name="waiter" extends="struts-default" namespace="/waiter">
-<!--        <interceptors>
-            <interceptor class="interceptors.RoleInterceptor" name="roleInterceptor">
-            </interceptor>
-            <interceptor-stack name="defaultStack">
-                <interceptor-ref name="roleInterceptor">
-                    <param name="yourInterceptor.interceptorConfigs.role">2</param>
-                </interceptor-ref>
-            </interceptor-stack>
-        </interceptors>
-        <default-interceptor-ref name="defaultStack"/>
-        <global-results>
-            <result name="role">/index</result>
-        </global-results>-->
-        
-        
-        <action name="" class="waiter.WaiterAction">
-            <result>waiter.jsp</result>
-        </action>
-        <action name="serve" class="waiter.ServeAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">getFood</param>
-            </result>
-        </action>
-        <action name="getFood" class="waiter.GetFoodAction">
-            <result name="success">createOrder.jsp</result>
-        </action>
-        <action name="addToCart" class="waiter.AddToCartAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">getFood</param>
-            </result>
-        </action>
-        <action name="removeItem" class="waiter.RemoveItemAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">getFood</param>
-            </result>
-        </action>
-        <action name="updateItem" class="waiter.UpdateItemAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">getFood</param>
-            </result>
-        </action>
-        <action name="insertOrder" class="waiter.InsertOrderAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">getFood</param>
-            </result>
-        </action>
-    </package>
-    
-    <package name="chef" extends="struts-default" namespace="/chef">
-        <action name="" class="chef.ViewPageAction">
-            <result name="success">chefPage.jsp</result>
-        </action>
-        
-        <action name="ViewPageAction" class="chef.ViewPageAction">
-            <result name="success">chefPage.jsp</result>
-        </action>
-        
-        <action name="UpdateChefId" class="chef.UpdateChefIdAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">ViewPageAction</param>
-            </result>
-            <result name="fail" type="redirect">getCookErr.html</result>
-        </action>
-        
-        <action name="Complete" class="chef.CompleteAction">
-            <result name="success" type="redirectAction">
-                <param name="actionName">ViewPageAction</param>
-            </result>
-            <result name="fail" type="redirect">completeErr.html</result>
-        </action>
-    </package>
-    
-    <package name="busboy" extends="struts-default" namespace="/manager">
-        <action name="index" class="sample.struts.IndexAction">
-            <result name="fail" type="redirect">../login.jsp</result>
-        </action>
-    </package>
+    <include file="host.xml"/>
+    <include file="waiter.xml"/>
+    <include file="chef.xml"/>
+    <include file="busboy.xml"/>
+    <include file="manager.xml"/>
 </struts>

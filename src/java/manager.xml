@@ -1,0 +1,73 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="manager" extends="struts-default" namespace="/manager">
+
+        <global-results>
+            <result name="role">../index</result>
+        </global-results>
+        
+        <action name="index" class="manager.ManagerAction">
+            <result>index.jsp</result>
+        </action>
+        <action name="statistics" class="manager.ManagerAction">
+            <result>index.jsp</result>
+        </action>
+        <action name="" class="manager.ManagerAction">
+            <result>index.jsp</result>
+        </action>
+        
+        <action name="getTable" class="manager.GetAllTableAction">
+            <result name="success">manageTable.jsp</result>
+        </action>
+        
+        <action name="getFood" class="manager.GetFoodAction">
+            <result name="success">manageMenu.jsp</result>
+        </action>   
+        
+        <action name="DeleteFood" class="manager.DeleteFoodAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+            <result name="fail" type="redirect">deleteFoodErr.html</result>
+        </action> 
+        
+        <action name="UpdateFood" class="manager.UpdateFoodAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+            <result name="fail" type="redirect">updateFoodErr.html</result>
+        </action>
+        
+        <action name="CreateNewFood" class="manager.CreateNewFoodAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">getFood</param>
+            </result>
+            <result name="fail" type="redirect">createFoodErr.html</result>
+            <result name="input">createNewFood.jsp</result>
+        </action>
+        
+        <action name="manageEmployee" class="manager.ManageEmployeeAction">
+            <result name="success">manageEmployee.jsp</result>
+        </action>
+        <action name="deleteEmployee" class="manager.DeleteEmployeeAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">manageEmployee</param>
+            </result>
+        </action>
+        <action name="updateEmployee" class="manager.UpdateEmployeeAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">manageEmployee</param>
+            </result>
+        </action>
+        <action name="createNewEmployee" class="manager.CreateNewEmployeeAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">manageEmployee</param>
+            </result>
+            <result name="input">createNewEmployee.jsp</result>
+        </action>
+
+    </package>
+</struts>

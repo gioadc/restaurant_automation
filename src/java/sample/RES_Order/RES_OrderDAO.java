@@ -59,4 +59,65 @@ public class RES_OrderDAO {
         }
         return null;
     }
+    
+    public boolean updtePaidTime(BigDecimal orderID) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        try {
+            con = DBUtilitizes.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE RES_Order SET paidTime = ? WHERE orderID = ?";
+                stm = con.prepareStatement(sql);
+                Timestamp paidTime = new Timestamp(System.currentTimeMillis());
+                stm.setTimestamp(1, paidTime);
+                stm.setBigDecimal(2, orderID);
+                int row = stm.executeUpdate();
+                if(row > 0){
+                    return true;
+                }
+            }
+        } finally {
+           
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
+    public RES_OrderDTO getLastServOrder(String waiterID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtilitizes.makeConnection();
+            String sql = "SELECT TOP 1 * FROM RES_Order WHERE waiterID = ? and paidTime is NULL";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, waiterID);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                RES_OrderDTO dto = new RES_OrderDTO();
+                dto.setOrderID(rs.getBigDecimal("orderID"));
+                dto.setTableID(rs.getInt("tableID"));
+                dto.setOrderTime(rs.getTimestamp("orderTime"));
+                dto.setWaiterID(waiterID);
+                return dto;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
 }

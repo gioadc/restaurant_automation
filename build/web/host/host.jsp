@@ -51,7 +51,9 @@
 
             </s:if>
             <s:if test="%{list == null}">
-                <h3>No table is empty now ! Please wait for a minute ! Thank you so much !</h3>
+                <div class="container">
+                    <h3 class="alert alert-warning">No table is empty now ! Please wait for a minute ! Thank you so much !</h3>
+                </div>
             </s:if>
         </div>
     </body>

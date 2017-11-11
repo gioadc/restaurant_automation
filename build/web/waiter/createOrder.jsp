@@ -41,7 +41,7 @@
                                     <td><s:property value="%{#dto.price}"/>
                                         <s:hidden name="price" value="%{#dto.price}"/>
                                     </td>
-                                    <td><s:textfield name="quantity" value="1" cssClass="input"/></td>
+                                    <td><s:textfield name="quantity" value="1" cssClass="input" /></td>
                                     <td>
                                         <s:hidden name="itemID" value="%{#dto.itemID}"/>
                                         <s:submit value="Order" cssClass="btn btn-primary"/>

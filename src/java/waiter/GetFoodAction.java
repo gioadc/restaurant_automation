@@ -5,9 +5,13 @@
  */
 package waiter;
 
+import com.opensymphony.xwork2.ActionContext;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Map;
 import sample.RES_Food.RES_FoodDAO;
 import sample.RES_Food.RES_FoodDTO;
+import sample.cart.Cart;
 
 /**
  *
@@ -17,6 +21,7 @@ public class GetFoodAction {
 
     private ArrayList<RES_FoodDTO> foods;
     private final String SUCCESS = "success";
+    private final String FAIL = "fail";
 
     public GetFoodAction() {
     }
@@ -24,6 +29,19 @@ public class GetFoodAction {
     public String execute() throws Exception {
         RES_FoodDAO daoFood = new RES_FoodDAO();
         this.foods = daoFood.getFoods();
+        
+        Map session = ActionContext.getContext().getSession();
+        
+        if (!session.containsKey("ORDERID")) {
+            return FAIL;
+        }
+        
+        if (!session.containsKey("CART")) {
+            BigDecimal orderID = (BigDecimal) session.get("ORDERID");
+            Cart cart = new Cart();
+            cart.setOrderID(orderID);
+            session.put("CART", cart);
+        }
         return SUCCESS;
     }
 

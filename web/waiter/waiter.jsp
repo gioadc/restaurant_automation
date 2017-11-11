@@ -46,7 +46,7 @@
 
             <s:if test="%{tables == null}">
                 <div class="container">
-                    <h2 class="warning"><font color='red'>All of tables are serving</font></h2>
+                    <h2 class="alert alert-success">All of tables are serving, enjoy your time! :)</h2>
                 </div>
             </s:if>
         </div>

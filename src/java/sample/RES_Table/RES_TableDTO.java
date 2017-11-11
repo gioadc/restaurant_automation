@@ -14,6 +14,11 @@ import java.io.Serializable;
 public class RES_TableDTO implements Serializable{
     private int tableID;
     private int tableStatus;
+    private String tableStatusStr;
+
+    public void setTableStatusStr(String tableStatusStr) {
+        this.tableStatusStr = tableStatusStr;
+    }
 
     public RES_TableDTO() {
     }
@@ -37,6 +42,28 @@ public class RES_TableDTO implements Serializable{
 
     public void setTableStatus(int tableStatus) {
         this.tableStatus = tableStatus;
+    }
+
+    public String getTableStatusStr() {
+        String tableStr = "";
+        switch (this.tableStatus) {
+            case 0:
+                tableStr = "Clean";
+                break;
+            case 1:
+                tableStr = "Waiting for waiter";
+                break;
+            case 2:
+                tableStr = "Serving";
+                break;
+            case 3:
+                tableStr = "Dirty";
+                break;
+            case 4:
+                tableStr = "Cleaning";
+                break;
+        }
+        return tableStr;
     }
     
 }

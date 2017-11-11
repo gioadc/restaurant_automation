@@ -38,6 +38,7 @@ public class Cart implements Serializable{
             dto.setOrderID(orderID);
             dto.setItemID(food.getItemID());
             dto.setName(food.getName());
+            dto.setQuantity(quantity);
             dto.setPrice(food.getPrice());
         }
         this.items.put(food.getItemID(), dto);

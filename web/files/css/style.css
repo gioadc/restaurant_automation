@@ -12,24 +12,49 @@ and open the template in the editor.
     box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    color: #222;
+    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+    min-width: 420px;
+}
+
 html { 
-  background: url(../images/bg03.jpg) no-repeat center center fixed; 
+  background: url(../images/bg06.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow: hidden;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    color: #585858;
-    font-family: "Roboto", sans-serif;
-    min-height: 100vh;
+body {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(244,244,244,0.5); 
+    -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.5); 
 }
 
 a {
     text-decoration: none;
+    color: #eee;
+}
+a:hover {
+    color: #c11cbb;
 }
 
 .float-left {
@@ -40,6 +65,12 @@ a {
     float: right;
 }
 
+.center-block {
+    display: block;
+    margin: 0 auto;
+    float: none;
+}
+
 .clear {
     clear: both;
 }
@@ -47,18 +78,25 @@ a {
 /* Site style */
 .site-title {
     color: #fff;
-    text-shadow: 3px 2px 3px #000;
+    text-shadow: 3px 2px 3px rgba(37, 37, 37, 0.8);
 }
 
 .top-bar {
-    background-color: rgba(244,244,244,0.9);
+    background-color: rgba(244, 244, 244, 0.2);
     padding: 10px;
+    color: #fdfdfd;
+}
+
+hr {
+    height: 1px;
+    background: rgba(230, 230, 230, 0.5);
+    border: none;
 }
 
 .body {
     max-width: 900px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     min-height: 90vh;
 }
 
@@ -72,8 +110,19 @@ a {
 }
 
 .divider {
-    padding: 10px;
+    padding: 10px;height: 1px;
+    border: none;
 }
+
+/*MENU*/
+.menu a {
+    padding: 10px;
+    margin: 0 5px;
+    background: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 /*Login page*/
 
 .login-cotainer {
@@ -86,6 +135,11 @@ a {
     background: -moz-linear-gradient(to left, #76b852, #8DC26F);
     background: -o-linear-gradient(to left, #76b852, #8DC26F);
     background: linear-gradient(to left, #76b852, #8DC26F);
+    background: url(../images/bg04.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .login-block {
@@ -95,18 +149,18 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 3px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .lose-focus {
-    color: #ccc7c7;
+    color: #8c8c8c;
     line-height: 50px;
 }
 
 .btn {
-        display: inline-block;
+    display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
     font-size: 14px;
@@ -167,14 +221,20 @@ a {
 
 .result-table {
     width: 100%;
+    transition: all 0.5s;
+}
+
+.empty-table {
+    opacity: 0;
+    display: none;
 }
 
 .result-table tr:nth-child(even) {
-    background-color: #f8f9fc;
+    background-color: rgba(243,243,243,.85);
 }
 
 .result-table tr:nth-child(odd) {
-    background-color: #f2f2f2;
+    background-color: rgba(255,255,255,.9);
 }
 
 .result-table td, .result-table th {
@@ -213,4 +273,60 @@ a {
 .alert-warning {
     background-color: #ebccd1;
     color: #e04845;
+}
+
+.report-filter .input {
+    padding: 2px 3px;
+    width: auto;
+}
+
+/* TAB */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: rgba(244, 244, 244, 0.7);
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.limit-height {
+    max-height: 90vh;
+    overflow-y: auto;
 }

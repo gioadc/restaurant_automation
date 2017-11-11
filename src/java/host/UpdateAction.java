@@ -17,27 +17,29 @@ import sample.RES_Table.RES_TableDAO;
 public class UpdateAction {
     private final String SUCCESS = "success";
     private final String FAIL = "fail";
-    private final int TABLESTATUS = 1;
+    private final byte TABLESTATUS = 1;
     private String Error;
     private int tableID;
-    private Timestamp timeComeIn;
+    private final String ROLE = "role";
     
     public UpdateAction() {
     }
     
     public String execute() throws Exception {
-        RES_TableDAO dao = new RES_TableDAO();
-        boolean result = dao.updateTableStatus(tableID, TABLESTATUS);
+        Map session = ActionContext.getContext().getSession();
+        if (!session.containsKey("USERID")) {
+            return ROLE;
+        }
+        String userID = (String)session.get("USERID");
         
+        RES_TableDAO dao = new RES_TableDAO();
+        boolean result = dao.updateTableStatus(tableID, userID, TABLESTATUS);
         String url = FAIL;
         if (result){
             url = SUCCESS;
         }else{
             Error = "Update Error !!!";
         }
-        Map session = ActionContext.getContext().getSession();
-        String hostID = (String)session.get("USERID");
-        boolean result2 = dao.insertTimeComeIn(hostID, tableID, timeComeIn);
         
         return url;
     }
@@ -48,14 +50,6 @@ public class UpdateAction {
 
     public void setTableID(int tableID) {
         this.tableID = tableID;
-    }
-
-    public Timestamp getTimeComeIn() {
-        return timeComeIn;
-    }
-
-    public void setTimeComeIn(Timestamp timeComeIn) {
-        this.timeComeIn = timeComeIn;
     }
 
     public String getError() {

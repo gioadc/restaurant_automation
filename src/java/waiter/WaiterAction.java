@@ -5,8 +5,12 @@
  */
 package waiter;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import sample.RES_Order.RES_OrderDAO;
+import sample.RES_Order.RES_OrderDTO;
 import sample.RES_Table.RES_TableDAO;
 import sample.RES_Table.RES_TableDTO;
 
@@ -25,6 +29,22 @@ public class WaiterAction {
     }
 
     public String execute() throws Exception {
+        
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        
+        if (!session.containsKey("USERID")) {
+            return "role";
+        }
+        String userID = (String) session.get("USERID");
+        
+        RES_OrderDAO orderDao = new RES_OrderDAO();
+        RES_OrderDTO dto = orderDao.getLastServOrder(userID);
+        if (dto != null) {
+            session.put("TABLEID", dto.getTableID());
+            session.put("ORDERID", dto.getOrderID());
+            return "lastserve";
+        }
+        
         RES_TableDAO dao = new RES_TableDAO();
         dao.getTablesByStatus(TABLESTATUS);
         if(this.tables == null){

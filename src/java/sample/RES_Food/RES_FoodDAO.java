@@ -53,4 +53,95 @@ public class RES_FoodDAO implements Serializable {
         }
         return null;
     }
+
+    public boolean deleteFood(int itemID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBUtilitizes.makeConnection();
+
+            if (con != null) {
+                String sql = "Delete From RES_Food Where itemID = ?";
+
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, itemID);
+
+                int row = stm.executeUpdate();
+                if (row > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean updateFood(int itemID, String name, int price) throws NamingException, SQLException {
+
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBUtilitizes.makeConnection();
+            if (con != null) {
+                String sql = "Update RES_Food Set name = ?, price = ? Where itemID = ?";
+
+                stm = con.prepareStatement(sql);
+
+                stm.setString(1, name);
+                stm.setInt(2, price);
+                stm.setInt(3, itemID);
+
+                int row = stm.executeUpdate();
+                if (row > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean createNewFood(String name, int price)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBUtilitizes.makeConnection();
+
+            if (con != null) {
+                String sql = "Insert into RES_Food(name, price) "
+                        + "Values(?, ?)";
+
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setInt(2, price);
+
+                int row = stm.executeUpdate();
+                if (row > 0) {
+                    return true;
+                }
+            }
+
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
 }

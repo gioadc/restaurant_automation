@@ -20,11 +20,19 @@ import static org.apache.struts2.StrutsStatics.HTTP_REQUEST;
  */
 public class RoleInterceptor implements Interceptor {
     private final Map<String, Object> interceptorConfigs = new HashMap();
+    private int role;
 
     public Map<String, Object> getInterceptorConfigs() {
         return interceptorConfigs;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
 
     public void addInterceptorConfig(final String configName, final String configValue) {
         interceptorConfigs.put(configName, configValue);

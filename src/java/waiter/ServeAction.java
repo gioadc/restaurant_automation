@@ -7,13 +7,9 @@ package waiter;
 
 import com.opensymphony.xwork2.ActionContext;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Map;
-import sample.RES_Food.RES_FoodDAO;
-import sample.RES_Food.RES_FoodDTO;
 import sample.RES_Order.RES_OrderDAO;
 import sample.RES_Table.RES_TableDAO;
-import sample.cart.Cart;
 
 /**
  *
@@ -23,29 +19,35 @@ public class ServeAction {
 
     private int tableID;
     //change into status = 2 : serving
-    private final int TABLESTATUS = 2;
+    private final byte TABLESTATUS = 2;
     
     private final String SUCCESS = "success";
     private final String FAIL = "fail";
+    private final String ROLE = "role";
 
     public ServeAction() {
     }
 
     public String execute() throws Exception {
-        RES_TableDAO daoTable = new RES_TableDAO();
-        boolean result1 = daoTable.updateTableStatus(tableID, TABLESTATUS);
         
         Map session = ActionContext.getContext().getSession();
+        if (!session.containsKey("USERID")) {
+            return ROLE;
+        }
         String waiterID = (String)session.get("USERID");
+        
+        RES_TableDAO daoTable = new RES_TableDAO();
+        boolean result1 = daoTable.updateTableStatus(tableID, waiterID, TABLESTATUS);
+        
+        session.put("TABLEID", tableID);
         RES_OrderDAO daoOrder = new RES_OrderDAO();
         BigDecimal orderID = daoOrder.createOrder(waiterID, tableID);
-        Cart cart = new Cart();
-        cart.setOrderID(orderID);
-        ActionContext.getContext().getSession().put("CART", cart);
+        
         String url = FAIL;
 
         if (result1 && orderID != null) {
             url = SUCCESS;
+            session.put("ORDERID", orderID);
         }
         return url;
     }
